@@ -1,9 +1,9 @@
 package rpc
 
 import (
-	"github.com/itering/substrate-api-rpc/keyring"
-	"github.com/itering/substrate-api-rpc/metadata"
-	"github.com/itering/substrate-api-rpc/websocket"
+	"github.com/misnaged/substrate-api-rpc/keyring"
+	"github.com/misnaged/substrate-api-rpc/metadata"
+	"github.com/misnaged/substrate-api-rpc/websocket"
 )
 
 type Client struct {

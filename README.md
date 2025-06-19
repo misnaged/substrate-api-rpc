@@ -12,7 +12,7 @@
 ## Install
 
 ```
-go get github.com/itering/substrate-api-rpc
+go get github.com/misnaged/substrate-api-rpc
 ```
 
 ## Usage

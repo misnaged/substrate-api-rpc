@@ -1,7 +1,7 @@
 package hasher
 
 import (
-	"github.com/itering/substrate-api-rpc/util/twox"
+	"github.com/misnaged/substrate-api-rpc/util/twox"
 	"golang.org/x/crypto/blake2b"
 )
 

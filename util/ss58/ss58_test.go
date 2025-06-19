@@ -3,7 +3,7 @@ package ss58_test
 import (
 	"testing"
 
-	"github.com/itering/substrate-api-rpc/util/ss58"
+	"github.com/misnaged/substrate-api-rpc/util/ss58"
 	"github.com/stretchr/testify/assert"
 )
 

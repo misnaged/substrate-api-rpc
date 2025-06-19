@@ -3,9 +3,9 @@ package rpc
 import (
 	"testing"
 
-	"github.com/itering/substrate-api-rpc/keyring"
-	"github.com/itering/substrate-api-rpc/metadata"
-	"github.com/itering/substrate-api-rpc/websocket"
+	"github.com/misnaged/substrate-api-rpc/keyring"
+	"github.com/misnaged/substrate-api-rpc/metadata"
+	"github.com/misnaged/substrate-api-rpc/websocket"
 	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 )
