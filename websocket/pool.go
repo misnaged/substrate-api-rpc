@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
-	"github.com/itering/substrate-api-rpc/pkg/recws"
+	"github.com/misnaged/substrate-api-rpc/pkg/recws"
 )
 
 var (

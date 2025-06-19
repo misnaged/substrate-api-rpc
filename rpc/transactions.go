@@ -9,11 +9,11 @@ import (
 	gorilla "github.com/gorilla/websocket"
 	scalecodec "github.com/itering/scale.go"
 	"github.com/itering/scale.go/types"
-	"github.com/itering/substrate-api-rpc/hasher"
-	"github.com/itering/substrate-api-rpc/metadata"
-	"github.com/itering/substrate-api-rpc/model"
-	"github.com/itering/substrate-api-rpc/util"
-	"github.com/itering/substrate-api-rpc/websocket"
+	"github.com/misnaged/substrate-api-rpc/hasher"
+	"github.com/misnaged/substrate-api-rpc/metadata"
+	"github.com/misnaged/substrate-api-rpc/model"
+	"github.com/misnaged/substrate-api-rpc/util"
+	"github.com/misnaged/substrate-api-rpc/websocket"
 )
 
 const TxVersionInfo = "84"

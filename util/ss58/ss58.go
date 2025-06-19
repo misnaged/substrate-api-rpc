@@ -1,8 +1,8 @@
 package ss58
 
 import (
-	"github.com/itering/substrate-api-rpc/util"
-	"github.com/itering/substrate-api-rpc/util/base58"
+	"github.com/misnaged/substrate-api-rpc/util"
+	"github.com/misnaged/substrate-api-rpc/util/base58"
 	"golang.org/x/crypto/blake2b"
 )
 

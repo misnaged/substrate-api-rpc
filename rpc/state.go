@@ -3,11 +3,11 @@ package rpc
 import (
 	"math/rand"
 
-	"github.com/itering/substrate-api-rpc/model"
-	"github.com/itering/substrate-api-rpc/storage"
-	"github.com/itering/substrate-api-rpc/storageKey"
-	"github.com/itering/substrate-api-rpc/util"
-	"github.com/itering/substrate-api-rpc/websocket"
+	"github.com/misnaged/substrate-api-rpc/model"
+	"github.com/misnaged/substrate-api-rpc/storage"
+	"github.com/misnaged/substrate-api-rpc/storageKey"
+	"github.com/misnaged/substrate-api-rpc/util"
+	"github.com/misnaged/substrate-api-rpc/websocket"
 )
 
 // ReadStorage Read substrate storage

@@ -9,7 +9,7 @@ import (
 
 	"github.com/itering/scale.go/types"
 	"github.com/itering/scale.go/types/scaleBytes"
-	"github.com/itering/substrate-api-rpc/util"
+	"github.com/misnaged/substrate-api-rpc/util"
 	"github.com/shopspring/decimal"
 )
 

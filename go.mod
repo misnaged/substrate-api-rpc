@@ -1,6 +1,6 @@
-module github.com/itering/substrate-api-rpc
+module github.com/misnaged/substrate-api-rpc
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/ChainSafe/go-schnorrkel v1.1.0

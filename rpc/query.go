@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/itering/substrate-api-rpc/model"
-	"github.com/itering/substrate-api-rpc/storage"
-	"github.com/itering/substrate-api-rpc/storageKey"
-	"github.com/itering/substrate-api-rpc/util"
-	"github.com/itering/substrate-api-rpc/util/ss58"
-	"github.com/itering/substrate-api-rpc/websocket"
+	"github.com/misnaged/substrate-api-rpc/model"
+	"github.com/misnaged/substrate-api-rpc/storage"
+	"github.com/misnaged/substrate-api-rpc/storageKey"
+	"github.com/misnaged/substrate-api-rpc/util"
+	"github.com/misnaged/substrate-api-rpc/util/ss58"
+	"github.com/misnaged/substrate-api-rpc/websocket"
 )
 
 func GetPaymentQueryInfo(p websocket.WsConn, encodedExtrinsic string) (paymentInfo *model.PaymentQueryInfo, err error) {
