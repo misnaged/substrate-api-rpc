@@ -32,7 +32,7 @@ func EncodeStorageKey(section, method string, args ...string) (storageKey Storag
 		return
 	}
 
-	mapType := checkoutHasherAndType(storageType)
+	mapType := CheckoutHasherAndType(storageType)
 	if mapType == nil {
 		return
 	}
@@ -52,14 +52,14 @@ func EncodeStorageKey(section, method string, args ...string) (storageKey Storag
 	return
 }
 
-type storageOption struct {
+type StorageOption struct {
 	Value  string   `json:"value"`
 	Keys   []string `json:"keys"`
 	Hasher []string `json:"hasher"`
 }
 
-func checkoutHasherAndType(t *types.StorageType) *storageOption {
-	option := storageOption{}
+func CheckoutHasherAndType(t *types.StorageType) *StorageOption {
+	option := StorageOption{}
 	switch t.Origin {
 	case "MapType":
 		option.Value = t.MapType.Value
