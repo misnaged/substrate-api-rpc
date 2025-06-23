@@ -48,13 +48,14 @@ type HealthResult struct {
 }
 
 type RuntimeVersion struct {
-	Apis               [][]interface{} `json:"apis"`
-	AuthoringVersion   int             `json:"authoringVersion"`
-	ImplName           string          `json:"implName"`
-	ImplVersion        int             `json:"implVersion"`
-	SpecName           string          `json:"specName"`
-	SpecVersion        int             `json:"specVersion"`
-	TransactionVersion int             `json:"transactionVersion"`
+	//Apis               [][]interface{} `json:"apis"`
+	Apis               []any  `json:"apis"`
+	AuthoringVersion   int    `json:"authoringVersion"`
+	ImplName           string `json:"implName"`
+	ImplVersion        int    `json:"implVersion"`
+	SpecName           string `json:"specName"`
+	SpecVersion        int    `json:"specVersion"`
+	TransactionVersion int    `json:"transactionVersion"`
 }
 
 type SystemTokenResult struct {
