@@ -12,7 +12,7 @@ import (
 )
 
 type ICustomTranscation interface {
-	SignTransactionCustom(args ...interface{}) (string, error)
+	SignTransactionCustom() (string, error)
 }
 
 func NewCustomTransaction(
@@ -21,7 +21,8 @@ func NewCustomTransaction(
 	version *model.RuntimeVersion,
 	meta *types.MetadataStruct,
 	kr keyring.IKeyRing,
-	scaleDecOpts *types.ScaleDecoderOption) ICustomTranscation {
+	scaleDecOpts *types.ScaleDecoderOption,
+	params []scalecodec.ExtrinsicParam) ICustomTranscation {
 	return &CustomTransaction{
 		CallIndex:        callIndex,
 		GenesisHash:      genesisHash,
@@ -30,6 +31,7 @@ func NewCustomTransaction(
 		Meta:             meta,
 		Keyring:          kr,
 		ScaleDecoderOpts: scaleDecOpts,
+		Params:           params,
 	}
 }
 
@@ -44,18 +46,11 @@ type CustomTransaction struct {
 	Params           []scalecodec.ExtrinsicParam
 }
 
-func (customTx *CustomTransaction) BuildParams(args ...any) {
-	for _, v := range args {
-		customTx.Params = append(customTx.Params, scalecodec.ExtrinsicParam{Value: v})
-	}
-}
-
 func (customTx *CustomTransaction) GetEncodedCall() string {
 	return types.EncodeWithOpt("Call", map[string]interface{}{"call_index": customTx.CallIndex, "params": customTx.Params}, customTx.ScaleDecoderOpts)
 }
 
-func (customTx *CustomTransaction) SignTransactionCustom(args ...interface{}) (string, error) {
-	customTx.BuildParams(args)
+func (customTx *CustomTransaction) SignTransactionCustom() (string, error) {
 	genericExtrinsic := &scalecodec.GenericExtrinsic{
 		VersionInfo: TxVersionInfo,
 		Signer:      map[string]interface{}{"Id": customTx.Keyring.PublicKey()},
@@ -63,10 +58,6 @@ func (customTx *CustomTransaction) SignTransactionCustom(args ...interface{}) (s
 		Nonce:       customTx.Nonce,
 		Params:      customTx.Params,
 		CallCode:    customTx.CallIndex,
-	}
-	payload, err := customTx.buildExtrinsicPayload(genericExtrinsic)
-	if err != nil {
-		return "", fmt.Errorf("failed to build extrinsic payload: %v", err)
 	}
 
 	genericExtrinsic.SignedExtensions = make(map[string]interface{})
@@ -76,6 +67,11 @@ func (customTx *CustomTransaction) SignTransactionCustom(args ...interface{}) (s
 	if util.StringInSlice("CheckMetadataHash", customTx.ScaleDecoderOpts.Metadata.Extrinsic.SignedIdentifier) {
 		genericExtrinsic.SignedExtensions["CheckMetadataHash"] = "Disabled"
 	}
+	payload, err := customTx.buildExtrinsicPayload(genericExtrinsic)
+	if err != nil {
+		return "", fmt.Errorf("failed to build extrinsic payload: %v", err)
+	}
+
 	if len(util.HexToBytes(payload)) > 256 {
 		payload = util.BytesToHex(hasher.HashByCryptoName(util.HexToBytes(payload), "Blake2_256"))
 	}
