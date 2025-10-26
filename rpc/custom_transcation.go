@@ -16,7 +16,7 @@ type ICustomTranscation interface {
 }
 
 func NewCustomTransaction(
-	callIndex, genesisHash string,
+	callIndex, genesisHash, era string,
 	nonce int,
 	version *model.RuntimeVersion,
 	meta *types.MetadataStruct,
@@ -27,6 +27,7 @@ func NewCustomTransaction(
 		CallIndex:        callIndex,
 		GenesisHash:      genesisHash,
 		Nonce:            nonce,
+		Era:              era,
 		RuntimeVersion:   version,
 		Meta:             meta,
 		Keyring:          kr,
@@ -37,7 +38,8 @@ func NewCustomTransaction(
 
 type CustomTransaction struct {
 	CallIndex,
-	GenesisHash string
+	GenesisHash,
+	Era string
 	Nonce            int
 	RuntimeVersion   *model.RuntimeVersion
 	Meta             *types.MetadataStruct
@@ -54,7 +56,7 @@ func (customTx *CustomTransaction) SignTransactionCustom() (string, error) {
 	genericExtrinsic := &scalecodec.GenericExtrinsic{
 		VersionInfo: TxVersionInfo,
 		Signer:      map[string]interface{}{"Id": customTx.Keyring.PublicKey()},
-		Era:         "00",
+		Era:         customTx.Era,
 		Nonce:       customTx.Nonce,
 		Params:      customTx.Params,
 		CallCode:    customTx.CallIndex,
