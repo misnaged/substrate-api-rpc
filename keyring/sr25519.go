@@ -4,7 +4,9 @@ import "C"
 import (
 	"errors"
 	"fmt"
-	subkey_sr25519 "github.com/misnaged/go-subkey/sr25519"
+	subkey_sr25519 "github.com/misnaged/go-subkey"
+	sccc "github.com/misnaged/go-subkey/sr25519"
+
 	"strings"
 
 	sr25519 "github.com/ChainSafe/go-schnorrkel"
@@ -45,13 +47,16 @@ func NewSr25519(seed string) *Sr25519 {
 
 func Sr25519WithPhrase(phrase string) (*Sr25519, error) {
 	var scheme subkey_sr25519.Scheme
-	kyr, err := scheme.FromPhrase(phrase, "")
+	kyr, err := subkey_sr25519.DeriveKeyPair(scheme, phrase)
 	if err != nil {
-		return nil, fmt.Errorf("failed to derive keyring from phrase: %v", err)
+		return nil, fmt.Errorf("failed to derive keyring from phrase: %w", err)
 	}
-	kr := subkey_sr25519.GetPubKeyRing(kyr)
-
-	return &Sr25519{priv: NewSr25519KeypairOpt(kr.Pub, kr.Secret)}, nil
+	kr := sccc.GetPubKeyRing(kyr)
+	key, err := NewSr25519Keypair(kr.Secret)
+	if err != nil {
+		return nil, fmt.Errorf("failed: %w", err)
+	}
+	return &Sr25519{priv: key}, nil
 }
 
 // PublicKey return sr25519 public key
