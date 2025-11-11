@@ -3,6 +3,8 @@ package keyring
 import "C"
 import (
 	"errors"
+	"fmt"
+	subkey_sr25519 "github.com/misnaged/go-subkey/sr25519"
 	"strings"
 
 	sr25519 "github.com/ChainSafe/go-schnorrkel"
@@ -41,6 +43,17 @@ func NewSr25519(seed string) *Sr25519 {
 	return &Sr25519{priv: pk}
 }
 
+func Sr25519WithPhrase(phrase string) (*Sr25519, error) {
+	var scheme subkey_sr25519.Scheme
+	kyr, err := scheme.FromPhrase(phrase, "")
+	if err != nil {
+		return nil, fmt.Errorf("failed to derive keyring from phrase: %v", err)
+	}
+	kr := subkey_sr25519.GetPubKeyRing(kyr)
+
+	return &Sr25519{priv: NewSr25519KeypairOpt(kr.Pub, kr.Secret)}, nil
+}
+
 // PublicKey return sr25519 public key
 func (s *Sr25519) PublicKey() string {
 	return utiles.BytesToHex(s.priv.Public().Encode())
@@ -75,6 +88,13 @@ var SigningContext = []byte("substrate")
 type Sr25519Keypair struct {
 	public  *Sr25519PublicKey
 	private *Sr25519PrivateKey
+}
+
+func NewSr25519KeypairOpt(public *sr25519.PublicKey, private *sr25519.SecretKey) *Sr25519Keypair {
+	return &Sr25519Keypair{
+		public:  &Sr25519PublicKey{key: public},
+		private: &Sr25519PrivateKey{key: private},
+	}
 }
 
 type Sr25519PublicKey struct {
