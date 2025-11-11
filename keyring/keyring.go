@@ -21,3 +21,6 @@ func New(category Category, seed string) IKeyRing {
 	}
 	panic("invalid category")
 }
+func NewSr25519WithPhrase(phrase string) (IKeyRing, error) {
+	return Sr25519WithPhrase(phrase)
+}
